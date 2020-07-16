@@ -9,20 +9,43 @@ const findById = (id) => {
 };
 
 const findSteps = (id) => {
-	return db('steps').where({ id }); //Not done
+	return db('steps').where({ id }); //Not done. also read the resolves to null thing
 };
 
 const add = (obj) => {
-	return db('schemes').insert(obj).then(returned => {
-        return returned;
-    }).catch(err => {
-        return err
-    });
+	return db('schemes')
+		.insert(obj)
+		.then((returned) => {
+			return returned;
+		})
+		.catch((err) => {
+			return err;
+		});
 };
 
-const update = (changes, id) => {};
+const update = (changes, id) => {
+	return db('schemes')
+		.where({ id })
+		.update(changes)
+		.then((_) => {
+			return db('schemes').where({ id }).first();
+		});
+};
 
-const remove = (id) => {};
+const remove = (id) => {
+	return db('schemes')
+		.where({ id })
+		.first()
+		.then((found) => {
+			return db('schemes')
+				.where({ id })
+				.del()
+				.then((_) => {
+					return found;
+				})
+				.catch((err) => err);
+		});
+};
 
 module.exports = {
 	find,

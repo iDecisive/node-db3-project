@@ -110,7 +110,7 @@ router.delete('/:id', (req, res) => {
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to delete scheme' });
+    res.status(500).json({ message: 'Failed to delete scheme', err: err });
   });
 });
 
