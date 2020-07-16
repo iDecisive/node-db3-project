@@ -9,7 +9,16 @@ const findById = (id) => {
 };
 
 const findSteps = (id) => {
-	return db('steps').where({ id }); //Not done. also read the resolves to null thing
+	return db('schemes')
+		.join('steps', 'steps.scheme_id', 'schemes.id')
+		.where('steps.scheme_id', id)
+		.select(
+			'schemes.id',
+			'schemes.scheme_name',
+			'steps.step_number',
+			'steps.instructions'
+		)
+		.orderBy('steps.step_number');
 };
 
 const add = (obj) => {
