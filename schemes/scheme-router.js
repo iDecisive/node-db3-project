@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     res.status(201).json(scheme);
   })
   .catch (err => {
-    res.status(500).json({ message: 'Failed to create new scheme' });
+    res.status(500).json({ message: 'Failed to create new scheme', err: err });
   });
 });
 
@@ -110,7 +110,7 @@ router.delete('/:id', (req, res) => {
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to delete scheme' });
+    res.status(500).json({ message: 'Failed to delete scheme', err: err });
   });
 });
 
